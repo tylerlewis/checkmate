@@ -17,7 +17,8 @@ angular.module('checkmate')
     $state.go('splash');
   };
 
-  $scope.goToAuth = function() {
+  $scope.goToAuth = function(context) {
+    Auth.context = context;
     $state.go('auth');
   };
 
