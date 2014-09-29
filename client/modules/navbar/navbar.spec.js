@@ -28,6 +28,14 @@ describe('NavbarController', function() {
     expect(scope.logIn).to.be.a('function');
   });
 
+  it('navbar should redirect users to authentication page when sign up or log in button is clicked', function() {
+    expect(scope.goToAuth).to.be.a('function');
+  });
+
+  it('goToAuth function should pass context to sign up/log in state', function() {
+    //
+  });
+
   it('"checkmate" on navbar should redirect users to splash page', function() {
     expect(scope.goHome).to.be.a('function');
   });
