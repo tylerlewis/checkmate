@@ -1,0 +1,10 @@
+{
+  "name": "checkmate",
+  "version": "0.0.0",
+  "description": "Easy bill-splitting between friends",
+  "dependencies": {
+    "express": "^4.9.3",
+    "gulp": "^3.8.8",
+    "nodemon": "^1.2.1"
+  }
+}
