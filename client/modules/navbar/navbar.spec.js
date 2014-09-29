@@ -20,4 +20,24 @@ describe('NavbarController', function() {
     expect(ctrl).to.not.equal(undefined);
   });
 
+  it('navbar should have a sign up function', function() {
+    expect(scope.signUp).to.be.a('function');
+  });
+
+  it('navbar should have a log in function', function() {
+    expect(scope.logIn).to.be.a('function');
+  });
+
+  it('"checkmate" on navbar should redirect users to splash page', function() {
+    expect(scope.goHome).to.be.a('function');
+  });
+
+  it('navbar should be aware of whether or not the user is logged in', function() {
+    expect(scope.loggedIn).to.exist;
+  })
+
+  it('navbar should display user\s name/sign out instead of sign up/log in if they are logged in', function() {
+    expect(scope.doThisLater).to.be.a('function');
+  }); 
+
 });
