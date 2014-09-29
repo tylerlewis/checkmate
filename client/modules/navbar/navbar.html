@@ -1,0 +1,20 @@
+<div ng-controller="NavbarController">
+  <div class="nav1">
+    <h2 class="appTitle" ng-click="goHome()">Checkmate</h2>
+  </div>
+  <div class="nav2"></div>
+  <div class="nav3">
+    <div class="signUpNavbar" ng-if="!loggedIn">
+      <h4>Sign Up</h4>
+    </div>
+    <div class="logInNavbar" ng-if="!loggedIn">
+      <h4>Log In</h4>
+    </div>
+    <div class="userNavbar" ng-if="loggedIn">
+      <h4>*Username*</h4>
+    </div>
+    <div class="signOutNavbar" ng-if="loggedIn">
+      <h4>Sign Out</h4>
+    </div>
+  </div>
+</div>
