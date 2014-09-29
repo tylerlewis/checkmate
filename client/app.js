@@ -12,6 +12,12 @@ angular.module('checkmate', ['ui.router'])
       controller: 'SplashController'
     })
 
+    .state('auth', {
+      url: '/auth',
+      templateUrl: 'modules/auth/auth.html',
+      controller: 'AuthController'
+    })
+
     .state('user', {
       url: '/user',
       templateUrl: 'modules/user/user.html',
