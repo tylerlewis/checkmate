@@ -1,6 +1,6 @@
 angular.module('checkmate')
 
-.controller('NavbarController', ['$scope', '$state', function($scope, $state) {
+.controller('NavbarController', ['$scope', '$state', 'Auth', function($scope, $state, Auth) {
 
   // In the future, will need to refer to Auth service to see if user is logged in
   $scope.loggedIn = false;
@@ -15,6 +15,10 @@ angular.module('checkmate')
 
   $scope.goHome = function() {
     $state.go('splash');
+  };
+
+  $scope.goToAuth = function() {
+    $state.go('auth');
   };
 
 }]);
