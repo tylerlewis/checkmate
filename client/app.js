@@ -12,10 +12,10 @@ angular.module('checkmate', ['ui.router'])
       controller: 'SplashController'
     })
 
-    .state('auth', {
-      url: '/auth',
-      templateUrl: 'modules/auth/auth.html',
-      controller: 'AuthController'
+    .state('login', {
+      url: '/login',
+      templateUrl: 'modules/login/login.html',
+      controller: 'LoginController'
     })
 
     .state('user', {
@@ -27,7 +27,10 @@ angular.module('checkmate', ['ui.router'])
     .state('group', {
       url: '/group',
       templateUrl: 'modules/group/group.html',
-      controller: 'GroupController'
+      controller: 'GroupController',
+      resolve: {
+        loggedin: checkLoggedIn
+      }
     });
 
 }]);
