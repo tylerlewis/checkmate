@@ -1,5 +1,5 @@
 angular.module('checkmate')
 
-.factory('Auth' ['$httpProvider', function($httpProvider) {
+.factory('Auth', ['$httpProvider', function($httpProvider) {
   
 }])
