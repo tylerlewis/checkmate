@@ -27,10 +27,7 @@ angular.module('checkmate', ['ui.router'])
     .state('group', {
       url: '/group',
       templateUrl: 'modules/group/group.html',
-      controller: 'GroupController',
-      resolve: {
-        loggedin: checkLoggedIn
-      }
+      controller: 'GroupController'
     });
 
 }]);

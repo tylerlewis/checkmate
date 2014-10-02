@@ -1,6 +1,6 @@
 angular.module('checkmate')
 
-.factory('Auth', [function() {
+.factory('Login', [function() {
 
   var context = true;
 
