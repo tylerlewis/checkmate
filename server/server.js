@@ -1,7 +1,6 @@
 'use strict';
 
 var express = require('express');
-var mongoose = require('mongoose');
 var passport = require('./auth.js');
 var bodyParser = require('body-parser');
 
@@ -21,16 +20,9 @@ var allowCrossDomain = function(request, response, next) {
 
 app.use(allowCrossDomain);
 
-var server = require('http').createServer(app);
-
 require('./routes')(app);
 
-mongoose.connect('mongodb://localhost/checkmate');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('db connected');
-});
+var server = require('http').createServer(app);
 
 server.listen(port, function() {
   console.log('Now listening to ', port);
