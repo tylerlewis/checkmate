@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var karma = require('karma').server;
 var nodemon = require('gulp-nodemon');
 var jshint = require('gulp-jshint');
 var install = require('gulp-install');
@@ -27,7 +28,12 @@ gulp.task('install', function(){
     .pipe(install());
 });
 
-//gulp test
+gulp.task('test', function (done) {
+ karma.start({
+  configFile: __dirname + '/karma.conf.js',
+  singleRun: true
+ }, done);
+});
 
 gulp.task('build', function(callback){
   runSequence('install', 'lint', 'serve', 'watch');
