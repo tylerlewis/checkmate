@@ -20,4 +20,24 @@ describe('UserController', function() {
     expect(ctrl).to.not.equal(undefined);
   });
 
+  it('clicking create group button on form should direct users to group page', function() {
+    expect(scope.createGroup).to.be.a('function');
+  });
+
+  it('clicking join group button on form should direct users to existing group page', function() {
+    expect(scope.joinGroup).to.be.a('function');
+  });
+
+  it('create group form should transmit form info in an object', function() {
+    expect(scope.newGroup).to.be.a('object');
+  });
+
+  it('join group form should transmit form info in an object', function() {
+    expect(scope.existingGroup).to.be.a('object');
+  });
+
+  it('only the form that the user has selected should be displayed', function() {
+    expect(scope.toggleForm).to.be.a('function');
+  });
+
 });
