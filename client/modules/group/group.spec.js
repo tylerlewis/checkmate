@@ -56,4 +56,9 @@ describe('GroupController', function() {
     expect(scope.newBill).to.be.a('object');
   });
 
+  it('report box should display who owes who what after splitting the bills', function() {
+    scope.owes();
+    expect(scope.report).to.be.a('array');
+  });
+
 });
