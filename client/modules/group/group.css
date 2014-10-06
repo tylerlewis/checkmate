@@ -1,0 +1,34 @@
+.groupMembersBox {
+  float: left;
+  margin-left: 5%;
+  margin-right: 2%;
+  padding: 0;
+  height: auto;
+  width: 20%;
+  border: 1px solid black;
+}
+
+.groupMembersBox h4 {
+  margin: 0;
+  padding: 0;
+}
+
+.billBox {
+  float: left;
+  margin-left: 2%;
+  margin-right: 2%;
+  padding: 0;
+  height: auto;
+  width: 40%;
+  border: 1px solid black;
+}
+
+.billReportBox {
+  float: left;
+  margin-left: 2%;
+  margin-right: 5%;
+  padding: 0;
+  height: auto;
+  width: 20%;
+  border: 1px solid black;
+}
