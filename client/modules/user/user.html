@@ -1,5 +1,22 @@
 <div ng-include=" 'modules/navbar/navbar.html' "></div>
 
 <div ng-controller="UserController">
-  User Page
+  <h2>Hello, Tyler!</h2>
+  <p>You have not joined any groups yet. Create or join a group to get started!</p>
+  <button ng-click="toggleForm(0)">Create Group</button>
+  <div class="createGroupBox" ng-if="showCreateGroupForm">
+    <form class="createGroupForm">
+      <input type="text" placeholder="Group Name">
+      <input type="password" placeholder="Group Password">
+      <button ng-click="createGroup()">Create Group</button>
+    </form>
+  </div>
+  <button ng-click="toggleForm(1)">Join Group</button>
+  <div class="joinGroupBox" ng-if="showJoinGroupForm">
+    <form class="joinGroupForm">
+      <input type="text" placeholder="Group Name">
+      <input type="password" placeholder="Group Password">
+      <button ng-click="joinGroup()">Join Group</button>
+    </form>
+  </div>
 </div>
