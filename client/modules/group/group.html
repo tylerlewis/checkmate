@@ -3,12 +3,32 @@
 <div ng-controller="GroupController">
   <div class="groupMembersBox">
     <h4>People in this group:</h4>
-    <ul></ul>
+    <ul>
+      <li ng-repeat="member in groupMembers"> {{ member.name }} </li>
+    </ul>
   </div>
   <div class="billBox">
-    <ul></ul>
+    <button ng-click="addBillFormDisplay()">Add Bill</button>
+    <div class="addBillBox" ng-if="showAddBillForm">
+      <form class="addBillForm">
+        <input type="text" placeholder="What bill did you pay?" ng-model="newBill.type">
+        <input type="text" placeholder="How much did you pay?" ng-model="newBill.amount">
+        <input type="text" placeholder="When did you pay this bill?" ng-model="newBill.date">
+        <button ng-click="addBill()">Post</button>
+      </form>
+    </div>
+    <ul>
+      <li ng-repeat="bill in bills">
+        <p>{{ bill.whoPaid }} paid ${{ bill.amount }} for the {{ bill.type }} on {{ bill.date }}.</p>
+      </li>
+    </ul>
   </div>
   <div class="billReportBox">
-    <ul></ul>
+    <h2>Who Owes Who What</h2>
+    <ul>
+      <li ng-repeat="statement in report">
+        <p>{{ statement.who }} owes {{ statement.debtor }} ${{ statement.amount }}.</p>
+      </li>
+    </ul>
   </div>
 </div>
