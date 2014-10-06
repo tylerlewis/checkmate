@@ -5,11 +5,11 @@ angular.module('checkmate')
   var context = true;
 
   var signUpUser = function(user) {
-    console.log(user);
+    
   };
 
   var logInUser = function(user) {
-    console.log(user);
+
   };
 
   return {

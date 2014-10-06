@@ -1,4 +1,4 @@
-describe('AuthController', function() {
+describe('LoginController', function() {
   'use strict';
 
   beforeEach(module('checkmate'));
@@ -10,7 +10,7 @@ describe('AuthController', function() {
     // Create a new scope that's a child of the $rootScope
     scope = $rootScope.$new();
     // Create the controller
-    ctrl = $controller('AuthController', {
+    ctrl = $controller('LoginController', {
       $scope: scope
     });
 
