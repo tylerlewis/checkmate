@@ -23,6 +23,10 @@
   border: 1px solid black;
 }
 
+.addBillForm input {
+  width: 25%;
+}
+
 .billReportBox {
   float: left;
   margin-left: 2%;
