@@ -3,39 +3,39 @@ CREATE DATABASE Checkmate;
 USE Checkmate;
 
 CREATE TABLE Users (
-  UserID int NOT NULL AUTO_INCREMENT,
-  Username varchar(255),
-  Password varchar(255),
-  PRIMARY KEY (UserID)
+  userId int NOT NULL AUTO_INCREMENT,
+  username varchar(255),
+  password varchar(255),
+  PRIMARY KEY (userID)
 );
 
 CREATE TABLE Groups (
-  GroupID int NOT NULL AUTO_INCREMENT,
-  Name varchar(255),
-  Password varchar(255),
-  UserID int,
-  PRIMARY KEY (GroupID),
-  FOREIGN KEY (UserID) REFERENCES Users (UserID)
+  groupId int NOT NULL AUTO_INCREMENT,
+  name varchar(255),
+  password varchar(255),
+  userId int,
+  PRIMARY KEY (groupId),
+  FOREIGN KEY (userId) REFERENCES Users (userId)
 );
 
 CREATE TABLE Bills (
-  BillID int NOT NULL AUTO_INCREMENT,
-  WhoPaid varchar(255),
-  Type varchar(255),
-  Amount decimal(65, 2),
-  Created date,
-  GroupID int,
-  UserID int,
-  PRIMARY KEY (BillID),
-  FOREIGN KEY (GroupID) REFERENCES Groups (GroupID),
-  FOREIGN KEY (UserID) REFERENCES Users (UserID)
+  billId int NOT NULL AUTO_INCREMENT,
+  whoPaid varchar(255),
+  type varchar(255),
+  amount decimal(65, 2),
+  created date,
+  groupId int,
+  userId int,
+  PRIMARY KEY (billId),
+  FOREIGN KEY (groupId) REFERENCES Groups (groupId),
+  FOREIGN KEY (userId) REFERENCES Users (userId)
 );
 
 CREATE TABLE Link (
-  LinkID int NOT NULL AUTO_INCREMENT,
-  GroupID int,
-  UserID int,
-  PRIMARY KEY (LinkID),
-  FOREIGN KEY (GroupID) REFERENCES Groups (UserID),
-  FOREIGN KEY (UserID) REFERENCES Users (UserID)
+  linkId int NOT NULL AUTO_INCREMENT,
+  groupId int,
+  userId int,
+  PRIMARY KEY (linkId),
+  FOREIGN KEY (groupId) REFERENCES Groups (userId),
+  FOREIGN KEY (userId) REFERENCES Users (userId)
 );
