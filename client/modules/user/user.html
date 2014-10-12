@@ -6,16 +6,16 @@
   <button ng-click="toggleForm(0)">Create Group</button>
   <div class="createGroupBox" ng-if="showCreateGroupForm">
     <form class="createGroupForm">
-      <input type="text" placeholder="Group Name">
-      <input type="password" placeholder="Group Password">
+      <input type="text" placeholder="Group Name" ng-model="newGroup.name">
+      <input type="password" placeholder="Group Password" ng-model="newGroup.password">
       <button ng-click="createGroup()">Create Group</button>
     </form>
   </div>
   <button ng-click="toggleForm(1)">Join Group</button>
   <div class="joinGroupBox" ng-if="showJoinGroupForm">
     <form class="joinGroupForm">
-      <input type="text" placeholder="Group Name">
-      <input type="password" placeholder="Group Password">
+      <input type="text" placeholder="Group Name" ng-model="existingGroup.name">
+      <input type="password" placeholder="Group Password" ng-model="existingGroup.password">
       <button ng-click="joinGroup()">Join Group</button>
     </form>
   </div>
