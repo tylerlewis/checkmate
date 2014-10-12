@@ -14,13 +14,11 @@ angular.module('checkmate')
   $scope.existingUser = {};
 
   $scope.signUpUser = function() {
-    $state.go('user');
-    // Login.signUpUser($scope.newUser);
+    Login.signUpUser($scope.newUser);
   };
 
   $scope.logInUser = function() {
-    $state.go('user');
-    // Login.logInUser($scope.existingUser);
+    Login.logInUser($scope.existingUser);
   };
 
 }]);

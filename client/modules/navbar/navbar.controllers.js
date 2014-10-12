@@ -1,17 +1,13 @@
 angular.module('checkmate')
 
-.controller('NavbarController', ['$scope', '$state', 'Login', function($scope, $state, Login) {
+.controller('NavbarController', ['$scope', '$state', 'Login', '$storage', function($scope, $state, Login, $storage) {
 
-  // In the future, will need to refer to Auth service to see if user is logged in
-  $scope.loggedIn = false;
-  
-  $scope.signUp = function() {
-    // Will call Auth service with user info
+  $scope.loggedIn = function() {
+    if($storage.get('user')) { return true; }
+    else { return false; }
   };
 
-  $scope.logIn = function() {
-    // Will call Auth service with user info
-  };
+  $scope.username = $storage.get('user');
 
   $scope.goHome = function() {
     $state.go('splash');
@@ -19,7 +15,16 @@ angular.module('checkmate')
 
   $scope.goToLogin = function(context) {
     Login.context = context;
-    $state.go('login');
+    if($state.current.name === 'login') { $state.go($state.current, {}, {reload: true}); }
+    else { $state.go('login'); }
+  };
+
+  $scope.goToProfile = function() {
+    $state.go('user');
+  };
+
+  $scope.logOut = function() {
+    Login.logOut();
   };
 
 }]);
