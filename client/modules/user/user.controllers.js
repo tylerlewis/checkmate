@@ -25,10 +25,12 @@ angular.module('checkmate')
   $scope.existingGroup = {};
   
   $scope.createGroup = function() {
+    $scope.newGroup.user = $storage.get('user');
     Group.createGroup($scope.newGroup);
   };
 
   $scope.joinGroup = function() {
+    $scope.existingGroup.user = $storage.get('user');
     Group.joinGroup($scope.existingGroup);
   };
 

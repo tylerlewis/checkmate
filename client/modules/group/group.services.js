@@ -2,6 +2,7 @@ angular.module('checkmate')
 
 .factory('Group', ['$http', '$state', '$storage', function($http, $state, $storage) {
   var createGroup = function(group) {
+    console.log("BEFORE POST")
     $http({
       url: 'http://localhost:8000/groups/create',
       method: 'POST',
