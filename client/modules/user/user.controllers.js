@@ -1,6 +1,6 @@
 angular.module('checkmate')
 
-.controller('UserController', ['$scope', '$state', '$storage', function($scope, $state, $storage) {
+.controller('UserController', ['$scope', '$state', '$storage', 'Group', function($scope, $state, $storage, Group) {
 
   $scope.auth = function() {
     if(!$storage.get('user')) { $state.go('splash'); }
@@ -25,11 +25,11 @@ angular.module('checkmate')
   $scope.existingGroup = {};
   
   $scope.createGroup = function() {
-    $state.go('group');
+    Group.createGroup($scope.newGroup);
   };
 
   $scope.joinGroup = function() {
-    $state.go('group');
+    Group.joinGroup($scope.existingGroup);
   };
 
 }]);

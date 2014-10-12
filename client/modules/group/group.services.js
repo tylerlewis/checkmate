@@ -1,6 +1,32 @@
 angular.module('checkmate')
 
-.factory('Group', ['$http', '$state', function($http, $state) {
+.factory('Group', ['$http', '$state', '$storage', function($http, $state, $storage) {
+  var createGroup = function(group) {
+    $http({
+      url: 'http://localhost:8000/groups/create',
+      method: 'POST',
+      data: JSON.stringify(group)
+    }).success(function(data) {
+      $storage.set('group', group.name);
+      $state.go('group');
+    }).error(function(err) {
+      //
+    });
+  };
+
+  var joinGroup = function(group) {
+    $http({
+      url: 'http://localhost:8000/groups/join',
+      method: 'POST',
+      data: JSON.stringify(group)
+    }).success(function(data) {
+      $storage.set('group', group.name);
+      $state.go('group');
+    }).error(function(err) {
+      //
+    });
+  };
+
   var userSeed = {
     0: {users: [{name: 'Tyler'},
                 {name: 'Beeler'},
@@ -69,6 +95,8 @@ angular.module('checkmate')
   };
 
   return {
+    createGroup: createGroup,
+    joinGroup: joinGroup,
     userSeed: userSeed,
     groupSeed: groupSeed,
     splitBills: splitBills,
