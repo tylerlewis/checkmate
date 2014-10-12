@@ -15,7 +15,13 @@ module.exports = function(app, passport) {
     response.send(200);
   });
 
-  app.get('/user', passport.authenticate('local-login'));
+  app.post('/groups/create', function(request, response) {
+    response.send(200);
+  });
+
+  app.post('/groups/join', function(request, response) {
+    response.send(200);
+  });
 
   app.get('/auth/logout', function(request, response) {
     request.logout();
