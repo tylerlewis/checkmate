@@ -1,6 +1,6 @@
 <div ng-include=" 'modules/navbar/navbar.html' "></div>
 
-<div ng-controller="UserController">
+<div ng-controller="UserController" ng-init="auth()">
   <h2>Hello, Tyler!</h2>
   <p>You have not joined any groups yet. Create or join a group to get started!</p>
   <button ng-click="toggleForm(0)">Create Group</button>

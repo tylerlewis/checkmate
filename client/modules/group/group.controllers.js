@@ -1,6 +1,10 @@
 angular.module('checkmate')
 
-.controller('GroupController', ['$scope', '$state', 'Group', function($scope, $state, Group) {
+.controller('GroupController', ['$scope', '$state', 'Group', '$storage', function($scope, $state, Group, $storage) {
+
+  $scope.auth = function() {
+    if(!$storage.get('user')) { $state.go('splash'); }
+  };
   
   $scope.groupMembers = Group.userSeed[0].users;
 

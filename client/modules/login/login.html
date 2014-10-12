@@ -2,13 +2,10 @@
 
 <div class="authBox" ng-controller="LoginController">
   <div class="signUpBox" ng-if="signUpDisplay">
-    <form class="signUpForm" ng-submit="signUpUser()">
-      <input class="newUserFirstName" type="text" placeholder="First Name" ng-model="newUser.firstName"/>
-      <input class="newUserLastName" type="text" placeholder="Last Name" ng-model="newUser.lastName"/>
-      <input class="newUserEmail" type="text" placeholder="Email" ng-model="newUser.email"/>
+    <form class="signUpForm">
       <input class="newUsername" type="text" placeholder="Username" ng-model="newUser.username"/>
       <input class="newPassword" type="password" placeholder="Password" ng-model="newUser.password"/>
-      <button class="signUpButton" type="submit">Sign Up</button>
+      <button class="signUpButton" type="submit" ng-click="signUpUser()">Sign Up</button>
     </form>
     <p>Already have an account? <span ng-click="toggleView()">Log in</span></p>
   </div>

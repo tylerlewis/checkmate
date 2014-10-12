@@ -1,6 +1,10 @@
 angular.module('checkmate')
 
-.controller('UserController', ['$scope', '$state', function($scope, $state) {
+.controller('UserController', ['$scope', '$state', '$storage', function($scope, $state, $storage) {
+
+  $scope.auth = function() {
+    if(!$storage.get('user')) { $state.go('splash'); }
+  };
 
   $scope.showCreateGroupForm = false;
 

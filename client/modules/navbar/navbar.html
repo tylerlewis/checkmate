@@ -4,17 +4,17 @@
   </div>
   <div class="nav2"></div>
   <div class="nav3">
-    <div class="signUpNavbar" ng-if="!loggedIn" ng-click="goToLogin(true)">
+    <div class="signUpNavbar" ng-if="!loggedIn()" ng-click="goToLogin(true)">
       <h4>Sign Up</h4>
     </div>
-    <div class="logInNavbar" ng-if="!loggedIn" ng-click="goToLogin(false)">
+    <div class="logInNavbar" ng-if="!loggedIn()" ng-click="goToLogin(false)">
       <h4>Log In</h4>
     </div>
-    <div class="userNavbar" ng-if="loggedIn">
-      <h4>*Username*</h4>
+    <div class="userNavbar" ng-if="loggedIn()" ng-click="goToProfile()">
+      <h4>{{ username }}</h4>
     </div>
-    <div class="signOutNavbar" ng-if="loggedIn">
-      <h4>Sign Out</h4>
+    <div class="logOutNavbar" ng-if="loggedIn()" ng-click="logOut()">
+      <h4>Log Out</h4>
     </div>
   </div>
 </div>

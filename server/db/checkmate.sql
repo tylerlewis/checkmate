@@ -4,8 +4,6 @@ USE Checkmate;
 
 CREATE TABLE Users (
   UserID int NOT NULL AUTO_INCREMENT,
-  FirstName varchar(255),
-  LastName varchar(255),
   Username varchar(255),
   Password varchar(255),
   PRIMARY KEY (UserID)

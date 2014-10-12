@@ -1,6 +1,6 @@
 <div ng-include=" 'modules/navbar/navbar.html' "></div>
 
-<div ng-controller="GroupController">
+<div ng-controller="GroupController" ng-init="auth()">
   <div class="groupMembersBox">
     <h4>People in this group:</h4>
     <ul>

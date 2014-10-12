@@ -30,4 +30,20 @@ angular.module('checkmate', ['ui.router'])
       controller: 'GroupController'
     });
 
+}])
+
+.service('$storage', [function() {
+
+  this.set = function(key, value) {
+    localStorage.setItem(key, value);
+  };
+
+  this.get = function(key) {
+    return localStorage.getItem(key);
+  };
+
+  this.clear = function() {
+    localStorage.clear();
+  };
+  
 }]);
