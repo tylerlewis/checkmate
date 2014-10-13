@@ -12,9 +12,12 @@ angular.module('checkmate')
     $scope.groupMembers = members; 
   }); 
 
-  $scope.bills = Group.bills;
-
-  $scope.report = Group.splitBills();
+  Group.getBills(function(bills) {
+    $scope.bills = bills;
+    Group.splitBills(bills, $scope.groupMembers.length, function(bills) {
+      $scope.report = bills;
+    });
+  });
 
   $scope.showAddBillForm = false;
 
@@ -24,16 +27,17 @@ angular.module('checkmate')
 
   $scope.newBill = {
     whoPaid: $scope.user,
-    groupId: $storage.get('group')
+    groupName: $storage.get('group')
   };
 
   $scope.addBill = function() {
     $scope.addBillFormDisplay();
+
     var amount = parseInt($scope.newBill.amount, 10);
     $scope.newBill.amount = amount;
-    Group.addBill($scope.newBill, function(bills) {
-      $scope.bills = bills;
-    });
+
+    Group.addBill($scope.newBill);
+
     // $scope.report = Group.splitBills();
     $scope.newBill = {};
   };
