@@ -5,10 +5,14 @@ angular.module('checkmate')
   $scope.auth = function() {
     if(!$storage.get('user')) { $state.go('splash'); }
   };
-  
-  $scope.groupMembers = Group.userSeed[0].users;
 
-  $scope.bills = Group.groupSeed[0].bills;
+  $scope.user = $storage.get('user');
+
+  Group.getMembers(function(members) {
+    $scope.groupMembers = members; 
+  }); 
+
+  $scope.bills = Group.bills;
 
   $scope.report = Group.splitBills();
 
@@ -18,16 +22,19 @@ angular.module('checkmate')
     $scope.showAddBillForm = !$scope.showAddBillForm;
   };
 
-  $scope.newBill = {};
+  $scope.newBill = {
+    whoPaid: $scope.user,
+    groupId: $storage.get('group')
+  };
 
   $scope.addBill = function() {
     $scope.addBillFormDisplay();
-    var rand = Math.floor((Math.random() * 3) + 0);
-    $scope.newBill.whoPaid = Group.userSeed[0].users[rand].name;
     var amount = parseInt($scope.newBill.amount, 10);
     $scope.newBill.amount = amount;
-    Group.addBill($scope.newBill);
-    $scope.report = Group.splitBills();
+    Group.addBill($scope.newBill, function(bills) {
+      $scope.bills = bills;
+    });
+    // $scope.report = Group.splitBills();
     $scope.newBill = {};
   };
 
