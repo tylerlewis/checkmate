@@ -66,14 +66,18 @@ angular.module('checkmate')
     });
   };
 
-  var splitBills = function(bills, userCount, callback) {
+  var splitBills = function(members, bills, callback) {
 
-    var data = [];
+    var owed = {};
+    for(var i = 0; i < members.length; i++) {
+      owed[members[i].username] = false;
+    };
 
     var addedUp = [];
     var memo = {};
     for(var i = 0; i < bills.length; i++) {
       if(!memo[bills[i].whoPaid]) {
+        owed[bills[i].whoPaid] = true;
         var sum = bills[i].amount;
         for(var j = i + 1; j < bills.length; j++) {
           if(bills[i].whoPaid === bills[j].whoPaid) {
@@ -84,18 +88,31 @@ angular.module('checkmate')
         addedUp.push({whoPaid: bills[i].whoPaid, amount: sum});
       }
     }
-    console.log("ADDED UP", addedUp)
+
+    if(addedUp.length === 1) {
+      var owed = addedUp[0].amount / members.length;
+      return callback(owed, addedUp[0].whoPaid);
+    }
+
+    var data = [];
 
     for(var i = 0; i < addedUp.length; i++) {
+
       var who = addedUp[i].whoPaid;
-      var paid = addedUp[i].amount / userCount;
+      var paid = addedUp[i].amount / members.length;
       data.push({who: who, paid: paid});
+
     }
 
     data.sort(function(a, b) {
       return a.paid - b.paid;
     });
-    console.log("DATA", data)
+
+    for(var key in owed) {
+      if(owed[key] === false) {
+        data.unshift({who: key, debtor: '', paid: 0});
+      }
+    }
 
     var results = [];
 
