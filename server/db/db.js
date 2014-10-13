@@ -15,28 +15,44 @@ module.exports.saveUser = function(user, callback) {
 };
 
 module.exports.findUser = function(user, callback) {
-  executeQuery('SELECT * FROM Users WHERE username = ? LIMIT 1;', [user.username], callback);
+  executeQuery('SELECT * FROM Users WHERE username = ?;', [user.username], callback);
 };
 
 module.exports.createGroup = function(group, callback) {
-  module.exports.findUser({ username: group.user }, function(err, user) {
-    group.password = hashPassword(group.password);
-    executeQuery('INSERT INTO Groups(name, password, userId) VALUES(?, ?, ?);', [group.name, group.password, user[0].userId], callback);
-  });
+  group.password = hashPassword(group.password);
+  executeQuery('INSERT INTO Groups(name, password) VALUES(?, ?);', [group.name, group.password], callback);
 };
 
 module.exports.joinGroup = function(group, password, callback) {
-  module.exports.findUser({ username: group.user }, function(err, user) {
-    if(validatePassword(group.password, password)) {
-      group.password = hashPassword(group.password);
-      executeQuery('INSERT INTO Groups(name, password, userId) VALUES(?, ?, ?);', [group.name, group.password, user[0].userId], callback);
-    }
-    else { callback('Password incorrect.'); }
-  });
+  if(validatePassword(group.password, password)) {
+    callback();
+  } else {
+    callback('Password incorrect.');
+  }
 };
 
 module.exports.findGroup = function(group, callback) {
-  executeQuery('SELECT * FROM Groups WHERE name = ? LIMIT 1;', [group.name], callback);
+  executeQuery('SELECT * FROM Groups WHERE name = ?;', [group.name], callback);
+};
+
+module.exports.findGroupLink = function(groupName, callback) {
+  executeQuery('SELECT username FROM Links WHERE groupName = ?;', [groupName], callback);
+};
+
+module.exports.addGroupLink = function(groupName, username, callback) {
+  executeQuery('INSERT INTO Links(groupName, username) VALUES(?, ?);', [groupName, username], callback);
+};
+
+module.exports.findUserLink = function(username, callback) {
+  executeQuery('SELECT * FROM Links WHERE username = ?;', [username], callback);
+};
+
+module.exports.addBill = function(bill, callback) {
+  executeQuery('INSERT INTO Bills(whoPaid, type, amount, date, groupName) VALUES(?, ?, ?, ?, ?);', [bill.whoPaid, bill.type, bill.amount, bill.createdAt, bill.groupName], callback);
+};
+
+module.exports.getBills = function(groupName, callback) {
+  executeQuery('SELECT * FROM Bills WHERE groupName = ?;', [groupName], callback);
 };
 
 var executeQuery = function(query, param, callback){
