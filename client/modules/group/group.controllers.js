@@ -5,12 +5,29 @@ angular.module('checkmate')
   $scope.auth = function() {
     if(!$storage.get('user')) { $state.go('splash'); }
   };
-  
-  $scope.groupMembers = Group.userSeed[0].users;
 
-  $scope.bills = Group.groupSeed[0].bills;
+  $scope.user = $storage.get('user');
 
-  $scope.report = Group.splitBills();
+  Group.getMembers(function(members) {
+    $scope.groupMembers = members; 
+  }); 
+
+  Group.getBills(function(bills) {
+    $scope.bills = bills;
+    Group.splitBills($scope.groupMembers, bills, function(bills, singleDebtor) {
+      // Check to see if only one person in group has paid bills so far
+      if(singleDebtor) {
+        $scope.report = [];
+        for(var i = 0; i < $scope.groupMembers.length; i++) {
+          if($scope.groupMembers[i].username !== singleDebtor) {
+            $scope.report.push({who: $scope.groupMembers[i].username, debtor: singleDebtor, amount: bills});
+          }
+        }
+      } else {
+        $scope.report = bills;
+      }
+    });
+  });
 
   $scope.showAddBillForm = false;
 
@@ -18,16 +35,39 @@ angular.module('checkmate')
     $scope.showAddBillForm = !$scope.showAddBillForm;
   };
 
-  $scope.newBill = {};
+  $scope.newBill = {
+    whoPaid: $scope.user,
+    groupName: $storage.get('group')
+  };
 
   $scope.addBill = function() {
+
     $scope.addBillFormDisplay();
-    var rand = Math.floor((Math.random() * 3) + 0);
-    $scope.newBill.whoPaid = Group.userSeed[0].users[rand].name;
+
+    var months = {
+      'Jan': 'January',
+      'Feb': 'February',
+      'Mar': 'March',
+      'Apr': 'April',
+      'May': 'May',
+      'Jun': 'June',
+      'Jul': 'July',
+      'Aug': 'August',
+      'Sep': 'September',
+      'Oct': 'October',
+      'Nov': 'November',
+      'Dec': 'December'
+    };
+
+    var dateSplit = $scope.newBill.billDate.toString().split(' ');
+    var date = months[dateSplit[1]] + ' ' + dateSplit[2] + ', ' + dateSplit[3];
+    $scope.newBill.billDate = date;
+
     var amount = parseInt($scope.newBill.amount, 10);
     $scope.newBill.amount = amount;
+
     Group.addBill($scope.newBill);
-    $scope.report = Group.splitBills();
+
     $scope.newBill = {};
   };
 

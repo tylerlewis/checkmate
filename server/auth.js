@@ -41,7 +41,7 @@ module.exports = function() {
         return done(null, false, { message: 'Incorrect username' });
       }
       if(user.length) {
-        if(!validatePassword(password, user[0].Password)) {
+        if(!validatePassword(password, user[0].password)) {
           return done(null, false, { message: 'Incorrect password' });
         }
       }

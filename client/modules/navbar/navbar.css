@@ -21,21 +21,17 @@
   cursor: pointer;
 }
 
-.signUpNavbar, .logInNavbar, .usernameNavbar, .signOutNavbar {
+.signUpNavbar, .logInNavbar, .userNavbar, .logOutNavbar {
   float: left;
   width: 25%;
   height: 100%;
 }
 
-.signUpNavbar:hover, .logInNavbar:hover, .usernameNavbar:hover, .signOutNavbar:hover {
+.signUpNavbar:hover, .logInNavbar:hover, .userNavbar:hover, .logOutNavbar:hover {
   cursor: pointer;
 }
 
 .signUpNavbar h4, .logInNavbar h4, .usernameNavbar h4, .signOutNavbar h4 {
   margin: 0;
   padding: 0;
-}
-
-.userNavbar:hover, .logOutNavbar:hover {
-  cursor: pointer;
 }

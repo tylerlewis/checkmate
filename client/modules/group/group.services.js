@@ -1,35 +1,83 @@
 angular.module('checkmate')
 
-.factory('Group', ['$http', '$state', function($http, $state) {
-  var userSeed = {
-    0: {users: [{name: 'Tyler'},
-                {name: 'Beeler'},
-                {name: 'Kent'},
-                {name: 'Paul'}]
-    }
+.factory('Group', ['$http', '$state', '$storage', function($http, $state, $storage) {
+  var createGroup = function(group) {
+    console.log("BEFORE POST")
+    $http({
+      url: 'http://localhost:8000/groups/create',
+      method: 'POST',
+      data: JSON.stringify(group)
+    }).success(function(data) {
+      $storage.set('group', group.name);
+      $state.go('group');
+    }).error(function(err) {
+      //
+    });
   };
 
-  var groupSeed = {
-    0: {bills: [{whoPaid: 'Tyler', type: 'electric', amount: 100, date: 'October 5, 2013'},
-                {whoPaid: 'Kent', type: 'cable', amount: 80, date: 'October 1, 2013'},
-                {whoPaid: 'Beeler', type: 'water', amount: 20, date: 'October 12, 2013'},
-                {whoPaid: 'Paul', type: 'gas', amount: 40, date: 'October 4, 2013'}]
-    }
+  var joinGroup = function(group) {
+    $http({
+      url: 'http://localhost:8000/groups/join',
+      method: 'POST',
+      data: JSON.stringify(group)
+    }).success(function(data) {
+      $storage.set('group', group.name);
+      $state.go('group');
+    }).error(function(err) {
+      //
+    });
   };
 
-  var addBill = function(billObj) {
-    groupSeed[0].bills.push(billObj);
+  var members;
+
+  var getMembers = function(callback) {
+    var group = $storage.get('group');
+    $http({
+      url: 'http://localhost:8000/groups/' + group,
+      method: 'GET',
+    }).success(function(members) {
+      callback(members);
+    }).error(function(err) {
+      //
+    });
   };
 
-  var splitBills = function() {
+  var addBill = function(billObj, callback) {
+    $http({
+      url: 'http://localhost:8000/bills',
+      method: 'POST',
+      data: JSON.stringify(billObj)
+    }).success(function(data) {
+      $state.go($state.current, {}, {reload: true});
+    }).error(function(err) {
+      //
+    });
+  };
 
-    var data = [];
-    var bills = groupSeed[0].bills;
+  var getBills = function(callback) {
+    var group = $storage.get('group');
+    $http({
+      url: 'http://localhost:8000/bills/' + group,
+      method: 'GET'
+    }).success(function(bills) {
+      callback(bills);
+    }).error(function(err) {
+      //
+    });
+  };
+
+  var splitBills = function(members, bills, callback) {
+
+    var owed = {};
+    for(var i = 0; i < members.length; i++) {
+      owed[members[i].username] = false;
+    };
 
     var addedUp = [];
     var memo = {};
     for(var i = 0; i < bills.length; i++) {
       if(!memo[bills[i].whoPaid]) {
+        owed[bills[i].whoPaid] = true;
         var sum = bills[i].amount;
         for(var j = i + 1; j < bills.length; j++) {
           if(bills[i].whoPaid === bills[j].whoPaid) {
@@ -41,15 +89,30 @@ angular.module('checkmate')
       }
     }
 
+    if(addedUp.length === 1) {
+      var owed = addedUp[0].amount / members.length;
+      return callback(owed, addedUp[0].whoPaid);
+    }
+
+    var data = [];
+
     for(var i = 0; i < addedUp.length; i++) {
+
       var who = addedUp[i].whoPaid;
-      var paid = addedUp[i].amount / 4;
+      var paid = addedUp[i].amount / members.length;
       data.push({who: who, paid: paid});
+
     }
 
     data.sort(function(a, b) {
       return a.paid - b.paid;
     });
+
+    for(var key in owed) {
+      if(owed[key] === false) {
+        data.unshift({who: key, debtor: '', paid: 0});
+      }
+    }
 
     var results = [];
 
@@ -63,14 +126,16 @@ angular.module('checkmate')
       }
     }
 
-    console.log(data);
-    return results;
+    callback(results);
 
   };
 
   return {
-    userSeed: userSeed,
-    groupSeed: groupSeed,
+    createGroup: createGroup,
+    joinGroup: joinGroup,
+    members: members,
+    getMembers: getMembers,
+    getBills: getBills,
     splitBills: splitBills,
     addBill: addBill
   };
