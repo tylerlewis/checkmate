@@ -13,9 +13,7 @@ CREATE TABLE Groups (
   groupId int NOT NULL AUTO_INCREMENT,
   name varchar(255),
   password varchar(255),
-  userId int,
-  PRIMARY KEY (groupId),
-  FOREIGN KEY (userId) REFERENCES Users (userId)
+  PRIMARY KEY (groupId)
 );
 
 CREATE TABLE Bills (
@@ -23,19 +21,14 @@ CREATE TABLE Bills (
   whoPaid varchar(255),
   type varchar(255),
   amount decimal(65, 2),
-  created date,
-  groupId int,
-  userId int,
-  PRIMARY KEY (billId),
-  FOREIGN KEY (groupId) REFERENCES Groups (groupId),
-  FOREIGN KEY (userId) REFERENCES Users (userId)
+  date varchar(255),
+  groupName varchar(255),
+  PRIMARY KEY (billId)
 );
 
-CREATE TABLE Link (
+CREATE TABLE Links (
   linkId int NOT NULL AUTO_INCREMENT,
-  groupId int,
-  userId int,
-  PRIMARY KEY (linkId),
-  FOREIGN KEY (groupId) REFERENCES Groups (userId),
-  FOREIGN KEY (userId) REFERENCES Users (userId)
+  groupName varchar(255),
+  username varchar(255),
+  PRIMARY KEY (linkId)
 );
