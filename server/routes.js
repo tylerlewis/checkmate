@@ -28,7 +28,12 @@ module.exports = function(app, passport) {
       else {
         db.createGroup(request.body, function(err, group) {
           if(err) { response.send(err); }
-          else response.send(group);
+          else {
+            db.addGroupLink(request.body.name, request.body.user, function(err, results) {
+              if(err) { response.send(err); }
+              response.status(200).send(results);
+            });
+          }
         });
       }
     });
@@ -36,23 +41,42 @@ module.exports = function(app, passport) {
 
   app.post('/groups/join', function(request, response) {
     db.findGroup(request.body, function(err, group) {
+      console.log(group)
       if(err) { response.send(err); }
       else if(!group.length) { response.send(401, 'Group name or password is incorrect.'); }
       else {
-        db.joinGroup(request.body, group[0].password, function(err, group) {
+        db.joinGroup(request.body, group[0].password, function(err) {
           if(err) { response.status(401).send('Password incorrect.'); }
-          else { response.send(group); }
+          else {
+            db.addGroupLink(request.body.name, request.body.user, function(err, results) {
+              if(err) { response.send(err); }
+              response.status(200).send(results);
+            });
+          }
         });
       }
     });
   });
 
-  app.get('/groups', function(request, response) {
-    console.log('Group request', request)
+  app.get('/groups/:name', function(request, response) {
+    db.findGroupLink(request.params.name, function(err, members) {
+      if(err) { response.send(err); }
+      response.status(200).send(members);
+    });
   });
 
   app.post('/bills', function(request, response) {
-    console.log('Bill request', request)
+    db.addBill(request.body, function(err, bill) {
+      if(err) { response.send(err); }
+      response.status(200).send(bill);
+    });
+  });
+
+  app.get('/bills/:groupName', function(request, response) {
+    db.getBills(request.params.groupName, function(err, bills) {
+      if(err) { response.send(err); }
+      response.status(200).send(bills);
+    });
   });
   
 };
