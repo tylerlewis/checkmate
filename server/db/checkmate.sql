@@ -21,7 +21,7 @@ CREATE TABLE Bills (
   whoPaid varchar(255),
   type varchar(255),
   amount decimal(65, 2),
-  date varchar(255),
+  billDate varchar(255),
   groupName varchar(255),
   PRIMARY KEY (billId)
 );
