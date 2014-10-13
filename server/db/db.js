@@ -48,7 +48,7 @@ module.exports.findUserLink = function(username, callback) {
 };
 
 module.exports.addBill = function(bill, callback) {
-  executeQuery('INSERT INTO Bills(whoPaid, type, amount, date, groupName) VALUES(?, ?, ?, ?, ?);', [bill.whoPaid, bill.type, bill.amount, bill.createdAt, bill.groupName], callback);
+  executeQuery('INSERT INTO Bills(whoPaid, type, amount, billDate, groupName) VALUES(?, ?, ?, ?, ?);', [bill.whoPaid, bill.type, bill.amount, bill.billDate, bill.groupName], callback);
 };
 
 module.exports.getBills = function(groupName, callback) {
