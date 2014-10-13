@@ -13,13 +13,13 @@
       <form class="addBillForm">
         <input type="text" placeholder="What bill did you pay?" ng-model="newBill.type">
         <input type="text" placeholder="How much did you pay?" ng-model="newBill.amount">
-        <input type="text" placeholder="When did you pay this bill?" ng-model="newBill.date">
+        <input type="date" placeholder="When did you pay this bill?" ng-model="newBill.billDate">
         <button ng-click="addBill()">Post</button>
       </form>
     </div>
     <ul>
       <li ng-repeat="bill in bills">
-        <p>{{ bill.whoPaid }} paid ${{ bill.amount }} for the {{ bill.type }} on {{ bill.date }}.</p>
+        <p>{{ bill.whoPaid }} paid ${{ bill.amount }} for the {{ bill.type }} on {{ bill.billDate }}.</p>
       </li>
     </ul>
   </div>
